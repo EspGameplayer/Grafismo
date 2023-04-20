@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411175752",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "country",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "abb",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "flag",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "population",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "censusYear",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "denonym",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Country",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,76 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411175735",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "match_player",
+  "fields": [
+    {
+      "fieldName": "shirtNumber",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "isYouth",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "isWarned",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MatchPlayer",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "teamPlayer",
+      "otherEntityRelationshipName": "matchPlayer",
+      "relationshipName": "teamPlayer",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "abb",
+      "otherEntityName": "position",
+      "otherEntityRelationshipName": "matchPlayer",
+      "relationshipName": "position",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "match",
+      "otherEntityRelationshipName": "motm",
+      "ownerSide": false,
+      "relationshipName": "motmMatch",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "lineup",
+      "otherEntityRelationshipName": "captain",
+      "ownerSide": false,
+      "relationshipName": "captainLineup",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "lineup",
+      "otherEntityRelationshipName": "matchPlayer",
+      "ownerSide": false,
+      "relationshipName": "lineup",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityName": "matchAction",
+      "otherEntityRelationshipName": "matchPlayer",
+      "ownerSide": false,
+      "relationshipName": "action",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

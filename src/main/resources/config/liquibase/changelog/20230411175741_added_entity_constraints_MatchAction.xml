@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity MatchAction.
+    -->
+    <changeSet id="20230411175741-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="match_id"
+                                 baseTableName="match_action"
+                                 constraintName="fk_match_action__match_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_match"/>
+
+        <addForeignKeyConstraint baseColumnNames="match_action_id"
+                                 baseTableName="rel_match_action__match_player"
+                                 constraintName="fk_rel_match_action__match_player__match_action_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_action"/>
+
+        <addForeignKeyConstraint baseColumnNames="match_player_id"
+                                 baseTableName="rel_match_action__match_player"
+                                 constraintName="fk_rel_match_action__match_player__match_player_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_player"/>
+    </changeSet>
+</databaseChangeLog>

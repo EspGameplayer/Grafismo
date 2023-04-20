@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Lineup.
+    -->
+    <changeSet id="20230411175736-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="captain_id"
+                                 baseTableName="lineup"
+                                 constraintName="fk_lineup__captain_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_player"/>
+
+        <addForeignKeyConstraint baseColumnNames="dt_id"
+                                 baseTableName="lineup"
+                                 constraintName="fk_lineup__dt_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_staff_member"/>
+
+        <addForeignKeyConstraint baseColumnNames="dt2_id"
+                                 baseTableName="lineup"
+                                 constraintName="fk_lineup__dt2_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_staff_member"/>
+
+        <addForeignKeyConstraint baseColumnNames="team_delegate_id"
+                                 baseTableName="lineup"
+                                 constraintName="fk_lineup__team_delegate_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_staff_member"/>
+
+        <addForeignKeyConstraint baseColumnNames="formation_id"
+                                 baseTableName="lineup"
+                                 constraintName="fk_lineup__formation_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="formation"/>
+
+        <addForeignKeyConstraint baseColumnNames="lineup_id"
+                                 baseTableName="rel_lineup__match_player"
+                                 constraintName="fk_rel_lineup__match_player__lineup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lineup"/>
+
+        <addForeignKeyConstraint baseColumnNames="match_player_id"
+                                 baseTableName="rel_lineup__match_player"
+                                 constraintName="fk_rel_lineup__match_player__match_player_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="match_player"/>
+    </changeSet>
+</databaseChangeLog>

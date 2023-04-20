@@ -1,0 +1,10 @@
+{
+  "grafismoApp": {
+    "CompetitionType": {
+      "null": "",
+      "LEAGUE": "Liga",
+      "LEAGUE2": "Liga (2p",
+      "CUP": "Copa"
+    }
+  }
+}

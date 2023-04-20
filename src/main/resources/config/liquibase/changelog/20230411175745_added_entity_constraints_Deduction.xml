@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Deduction.
+    -->
+    <changeSet id="20230411175745-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="team_id"
+                                 baseTableName="deduction"
+                                 constraintName="fk_deduction__team_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team"/>
+
+        <addForeignKeyConstraint baseColumnNames="competition_id"
+                                 baseTableName="deduction"
+                                 constraintName="fk_deduction__competition_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="competition"/>
+
+        <addForeignKeyConstraint baseColumnNames="match_id"
+                                 baseTableName="deduction"
+                                 constraintName="fk_deduction__match_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_match"/>
+    </changeSet>
+</databaseChangeLog>

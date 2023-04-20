@@ -1,0 +1,94 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411175725",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "person",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "middleName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "surname1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "surname2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nicknames",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "graphicsName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "longGraphicsName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "callnames",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "birthDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "deathDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mediumShotPhoto",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "fullShotPhoto",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "socialMedia",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "details",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Person",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "person",
+      "relationshipName": "nationality",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "graphicsName",
+      "otherEntityName": "location",
+      "otherEntityRelationshipName": "person",
+      "relationshipName": "birthplace",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

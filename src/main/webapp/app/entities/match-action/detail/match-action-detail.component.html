@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="matchAction">
+      <h2 data-cy="matchActionDetailsHeading"><span jhiTranslate="grafismoApp.matchAction.detail.title">Match Action</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ matchAction.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.matchAction.timestamp">Timestamp</span></dt>
+        <dd>
+          <span>{{ matchAction.timestamp }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.matchAction.details">Details</span></dt>
+        <dd>
+          <span>{{ matchAction.details }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.matchAction.miscData">Misc Data</span></dt>
+        <dd>
+          <span>{{ matchAction.miscData }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.matchAction.match">Match</span></dt>
+        <dd>
+          <div *ngIf="matchAction.match">
+            <a [routerLink]="['/match', matchAction.match?.id, 'view']">{{ matchAction.match?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.matchAction.matchPlayer">Match Player</span></dt>
+        <dd>
+          <span *ngFor="let matchPlayer of matchAction.matchPlayers; let last = last">
+            <a [routerLink]="['/match-player', matchPlayer?.id, 'view']">{{ matchPlayer.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/match-action', matchAction.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

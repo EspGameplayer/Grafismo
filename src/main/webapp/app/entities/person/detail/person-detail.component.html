@@ -1,0 +1,118 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="person">
+      <h2 data-cy="personDetailsHeading"><span jhiTranslate="grafismoApp.person.detail.title">Person</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ person.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.name">Name</span></dt>
+        <dd>
+          <span>{{ person.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.middleName">Middle Name</span></dt>
+        <dd>
+          <span>{{ person.middleName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.surname1">Surname 1</span></dt>
+        <dd>
+          <span>{{ person.surname1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.surname2">Surname 2</span></dt>
+        <dd>
+          <span>{{ person.surname2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.nicknames">Nicknames</span></dt>
+        <dd>
+          <span>{{ person.nicknames }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.graphicsName">Graphics Name</span></dt>
+        <dd>
+          <span>{{ person.graphicsName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.longGraphicsName">Long Graphics Name</span></dt>
+        <dd>
+          <span>{{ person.longGraphicsName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.callnames">Callnames</span></dt>
+        <dd>
+          <span>{{ person.callnames }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.birthDate">Birth Date</span></dt>
+        <dd>
+          <span>{{ person.birthDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.deathDate">Death Date</span></dt>
+        <dd>
+          <span>{{ person.deathDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.mediumShotPhoto">Medium Shot Photo</span></dt>
+        <dd>
+          <div *ngIf="person.mediumShotPhoto">
+            <a (click)="openFile(person.mediumShotPhoto, person.mediumShotPhotoContentType)">
+              <img
+                [src]="'data:' + person.mediumShotPhotoContentType + ';base64,' + person.mediumShotPhoto"
+                style="max-width: 100%"
+                alt="person image"
+              />
+            </a>
+            {{ person.mediumShotPhotoContentType }}, {{ byteSize(person.mediumShotPhoto) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.fullShotPhoto">Full Shot Photo</span></dt>
+        <dd>
+          <div *ngIf="person.fullShotPhoto">
+            <a (click)="openFile(person.fullShotPhoto, person.fullShotPhotoContentType)">
+              <img
+                [src]="'data:' + person.fullShotPhotoContentType + ';base64,' + person.fullShotPhoto"
+                style="max-width: 100%"
+                alt="person image"
+              />
+            </a>
+            {{ person.fullShotPhotoContentType }}, {{ byteSize(person.fullShotPhoto) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.socialMedia">Social Media</span></dt>
+        <dd>
+          <span>{{ person.socialMedia }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.details">Details</span></dt>
+        <dd>
+          <span>{{ person.details }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.miscData">Misc Data</span></dt>
+        <dd>
+          <span>{{ person.miscData }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.nationality">Nationality</span></dt>
+        <dd>
+          <div *ngIf="person.nationality">
+            <a [routerLink]="['/country', person.nationality?.id, 'view']">{{ person.nationality?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.person.birthplace">Birthplace</span></dt>
+        <dd>
+          <div *ngIf="person.birthplace">
+            <a [routerLink]="['/location', person.birthplace?.id, 'view']">{{ person.birthplace?.graphicsName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/person', person.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

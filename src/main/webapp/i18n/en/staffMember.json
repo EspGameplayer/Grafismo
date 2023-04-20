@@ -1,0 +1,28 @@
+{
+  "grafismoApp": {
+    "staffMember": {
+      "home": {
+        "title": "Staff Members",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Staff Member",
+        "createOrEditLabel": "Create or edit a Staff Member",
+        "notFound": "No Staff Members found"
+      },
+      "created": "A new Staff Member is created with identifier {{ param }}",
+      "updated": "A Staff Member is updated with identifier {{ param }}",
+      "deleted": "A Staff Member is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Staff Member {{ id }}?"
+      },
+      "detail": {
+        "title": "Staff Member"
+      },
+      "id": "ID",
+      "defaultRole": "Default Role",
+      "contractUntil": "Contract Until",
+      "retirementDate": "Retirement Date",
+      "miscData": "Misc Data",
+      "person": "Person"
+    }
+  }
+}

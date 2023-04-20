@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="teamPlayer">
+      <h2 data-cy="teamPlayerDetailsHeading"><span jhiTranslate="grafismoApp.teamPlayer.detail.title">Team Player</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ teamPlayer.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.preferredShirtNumber">Preferred Shirt Number</span></dt>
+        <dd>
+          <span>{{ teamPlayer.preferredShirtNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.isYouth">Is Youth</span></dt>
+        <dd>
+          <span>{{ teamPlayer.isYouth }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.sinceDate">Since Date</span></dt>
+        <dd>
+          <span>{{ teamPlayer.sinceDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.untilDate">Until Date</span></dt>
+        <dd>
+          <span>{{ teamPlayer.untilDate | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.miscData">Misc Data</span></dt>
+        <dd>
+          <span>{{ teamPlayer.miscData }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.team">Team</span></dt>
+        <dd>
+          <div *ngIf="teamPlayer.team">
+            <a [routerLink]="['/team', teamPlayer.team?.id, 'view']">{{ teamPlayer.team?.graphicsName }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.teamPlayer.player">Player</span></dt>
+        <dd>
+          <div *ngIf="teamPlayer.player">
+            <a [routerLink]="['/player', teamPlayer.player?.id, 'view']">{{ teamPlayer.player?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/team-player', teamPlayer.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

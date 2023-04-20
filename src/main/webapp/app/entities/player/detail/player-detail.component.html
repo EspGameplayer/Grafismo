@@ -1,0 +1,73 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="player">
+      <h2 data-cy="playerDetailsHeading"><span jhiTranslate="grafismoApp.player.detail.title">Player</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ player.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.shirtName">Shirt Name</span></dt>
+        <dd>
+          <span>{{ player.shirtName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.height">Height</span></dt>
+        <dd>
+          <span>{{ player.height }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.weight">Weight</span></dt>
+        <dd>
+          <span>{{ player.weight }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.strongerFoot">Stronger Foot</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'grafismoApp.Side.' + player.strongerFoot }}">{{ player.strongerFoot }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.preferredSide">Preferred Side</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'grafismoApp.Side.' + player.preferredSide }}">{{ player.preferredSide }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.contractUntil">Contract Until</span></dt>
+        <dd>
+          <span>{{ player.contractUntil }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.retirementDate">Retirement Date</span></dt>
+        <dd>
+          <span>{{ player.retirementDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.miscData">Misc Data</span></dt>
+        <dd>
+          <span>{{ player.miscData }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.person">Person</span></dt>
+        <dd>
+          <div *ngIf="player.person">
+            <a [routerLink]="['/person', player.person?.id, 'view']">{{ player.person?.graphicsName }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.player.position">Position</span></dt>
+        <dd>
+          <span *ngFor="let position of player.positions; let last = last">
+            <a [routerLink]="['/position', position?.id, 'view']">{{ position.abb }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/player', player.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

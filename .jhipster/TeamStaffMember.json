@@ -1,0 +1,48 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411175740",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "team_staff_member",
+  "fields": [
+    {
+      "fieldName": "role",
+      "fieldType": "StaffMemberRole",
+      "fieldValues": "DT (Entrenador),DT2 (Segundo entrenador),TEAM_DELEGATE (Delegado del equipo),MATCH_DELEGATE (Delegado de campo),PRESIDENT (Presidente),BOARD_MEMBER (Miembro de la junta directiva),MEMBER (Miembro)"
+    },
+    {
+      "fieldName": "sinceDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "untilDate",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TeamStaffMember",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "graphicsName",
+      "otherEntityName": "team",
+      "otherEntityRelationshipName": "teamStaffMember",
+      "relationshipName": "team",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "staffMember",
+      "otherEntityRelationshipName": "teamStaffMember",
+      "relationshipName": "staffMember",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

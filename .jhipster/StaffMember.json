@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20230411175727",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "staff_member",
+  "fields": [
+    {
+      "fieldName": "defaultRole",
+      "fieldType": "StaffMemberRole",
+      "fieldValues": "DT (Entrenador),DT2 (Segundo entrenador),TEAM_DELEGATE (Delegado del equipo),MATCH_DELEGATE (Delegado de campo),PRESIDENT (Presidente),BOARD_MEMBER (Miembro de la junta directiva),MEMBER (Miembro)"
+    },
+    {
+      "fieldName": "contractUntil",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "retirementDate",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "StaffMember",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "graphicsName",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "staffMember",
+      "ownerSide": true,
+      "relationshipName": "person",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    }
+  ],
+  "service": "serviceClass"
+}

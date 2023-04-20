@@ -1,0 +1,92 @@
+<div>
+  <h2 id="page-heading" data-cy="BroadcastPersonnelMemberHeading">
+    <span jhiTranslate="grafismoApp.broadcastPersonnelMember.home.title">Broadcast Personnel Members</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="grafismoApp.broadcastPersonnelMember.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-broadcast-personnel-member"
+        [routerLink]="['/broadcast-personnel-member/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="grafismoApp.broadcastPersonnelMember.home.createLabel"> Create a new Broadcast Personnel Member </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="broadcastPersonnelMembers?.length === 0">
+    <span jhiTranslate="grafismoApp.broadcastPersonnelMember.home.notFound">No broadcastPersonnelMembers found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="broadcastPersonnelMembers && broadcastPersonnelMembers.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="role">
+            <span jhiTranslate="grafismoApp.broadcastPersonnelMember.role">Role</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="person.graphicsName">
+            <span jhiTranslate="grafismoApp.broadcastPersonnelMember.person">Person</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let broadcastPersonnelMember of broadcastPersonnelMembers; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/broadcast-personnel-member', broadcastPersonnelMember.id, 'view']">{{ broadcastPersonnelMember.id }}</a>
+          </td>
+          <td jhiTranslate="{{ 'grafismoApp.BroadcastPersonnelMemberRole.' + broadcastPersonnelMember.role }}">
+            {{ broadcastPersonnelMember.role }}
+          </td>
+          <td>
+            <div *ngIf="broadcastPersonnelMember.person">
+              <a [routerLink]="['/person', broadcastPersonnelMember.person?.id, 'view']">{{
+                broadcastPersonnelMember.person?.graphicsName
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/broadcast-personnel-member', broadcastPersonnelMember.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/broadcast-personnel-member', broadcastPersonnelMember.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(broadcastPersonnelMember)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
