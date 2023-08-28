@@ -1,0 +1,10 @@
+{
+  "grafismoApp": {
+    "Side": {
+      "null": "",
+      "R": "Derecha",
+      "L": "Izquierda",
+      "B": "Ambas"
+    }
+  }
+}

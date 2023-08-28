@@ -1,0 +1,47 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205814",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "broadcast_personnel_member",
+  "fields": [
+    {
+      "fieldName": "graphicsName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "longGraphicsName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "role",
+      "fieldType": "BroadcastPersonnelMemberRole",
+      "fieldValues": "NARRATOR (Narrador),ANALYST (Analista),COMENTATOR (Comentarista),SIDELINE_REPORTER (Reportero a pie de campo),PRODUCER (Realizador),CAMERAMAN (Operador de cámara)"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "BroadcastPersonnelMember",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "graphicsName",
+      "otherEntityName": "person",
+      "otherEntityRelationshipName": "broadcastPersonnelMember",
+      "ownerSide": true,
+      "relationshipName": "person",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "broadcast",
+      "otherEntityRelationshipName": "broadcastPersonnelMember",
+      "ownerSide": false,
+      "relationshipName": "broadcast",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

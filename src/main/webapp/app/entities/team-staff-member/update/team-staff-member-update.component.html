@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-team-staff-member-heading"
+        data-cy="TeamStaffMemberCreateUpdateHeading"
+        jhiTranslate="grafismoApp.teamStaffMember.home.createOrEditLabel"
+      >
+        Create or edit a Team Staff Member
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.role" for="field_role">Role</label>
+          <select class="form-control" name="role" formControlName="role" id="field_role" data-cy="role">
+            <option [ngValue]="null">{{ 'grafismoApp.StaffMemberRole.null' | translate }}</option>
+            <option *ngFor="let staffMemberRole of staffMemberRoleValues" [value]="staffMemberRole">
+              {{ 'grafismoApp.StaffMemberRole.' + staffMemberRole | translate }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.sinceDate" for="field_sinceDate">Since Date</label>
+          <div class="input-group">
+            <input
+              id="field_sinceDate"
+              data-cy="sinceDate"
+              type="text"
+              class="form-control"
+              name="sinceDate"
+              ngbDatepicker
+              #sinceDateDp="ngbDatepicker"
+              formControlName="sinceDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="sinceDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.untilDate" for="field_untilDate">Until Date</label>
+          <div class="input-group">
+            <input
+              id="field_untilDate"
+              data-cy="untilDate"
+              type="text"
+              class="form-control"
+              name="untilDate"
+              ngbDatepicker
+              #untilDateDp="ngbDatepicker"
+              formControlName="untilDate"
+            />
+            <button type="button" class="btn btn-secondary" (click)="untilDateDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.team" for="field_team">Team</label>
+          <select class="form-control" id="field_team" data-cy="team" name="team" formControlName="team">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('team')!.value?.id ? editForm.get('team')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.teamStaffMember.staffMember" for="field_staffMember">Staff Member</label>
+          <select class="form-control" id="field_staffMember" data-cy="staffMember" name="staffMember" formControlName="staffMember">
+            <option *ngIf="!editForm.get('staffMember')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                staffMemberOption.id === editForm.get('staffMember')!.value?.id ? editForm.get('staffMember')!.value : staffMemberOption
+              "
+              *ngFor="let staffMemberOption of staffMembersSharedCollection; trackBy: trackStaffMemberById"
+            >
+              {{ staffMemberOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="editForm.get(['staffMember'])!.invalid && (editForm.get(['staffMember'])!.dirty || editForm.get(['staffMember'])!.touched)"
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['staffMember'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

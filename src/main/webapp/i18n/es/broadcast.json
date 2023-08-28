@@ -1,0 +1,27 @@
+{
+  "grafismoApp": {
+    "broadcast": {
+      "home": {
+        "title": "Broadcasts",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Broadcast",
+        "createOrEditLabel": "Crear o editar Broadcast",
+        "notFound": "Ningún Broadcasts encontrado"
+      },
+      "created": "Un nuevo Broadcast ha sido creado con el identificador {{ param }}",
+      "updated": "Un Broadcast ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Broadcast ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Broadcast {{ id }}?"
+      },
+      "detail": {
+        "title": "Broadcast"
+      },
+      "id": "ID",
+      "miscData": "Misc Data",
+      "match": "Match",
+      "systemConfiguration": "System Configuration",
+      "broadcastPersonnelMember": "Broadcast Personnel Member"
+    }
+  }
+}

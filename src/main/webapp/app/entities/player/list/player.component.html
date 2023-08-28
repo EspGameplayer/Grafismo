@@ -1,0 +1,114 @@
+<div>
+  <h2 id="page-heading" data-cy="PlayerHeading">
+    <span jhiTranslate="grafismoApp.player.home.title">Players</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="grafismoApp.player.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-player"
+        [routerLink]="['/player/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="grafismoApp.player.home.createLabel"> Create a new Player </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="players?.length === 0">
+    <span jhiTranslate="grafismoApp.player.home.notFound">No players found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="players && players.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="graphicsName">
+            <span jhiTranslate="grafismoApp.player.graphicsName">Graphics Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longGraphicsName">
+            <span jhiTranslate="grafismoApp.player.longGraphicsName">Long Graphics Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="shirtName">
+            <span jhiTranslate="grafismoApp.player.shirtName">Shirt Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="height">
+            <span jhiTranslate="grafismoApp.player.height">Height</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="weight">
+            <span jhiTranslate="grafismoApp.player.weight">Weight</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="strongerFoot">
+            <span jhiTranslate="grafismoApp.player.strongerFoot">Stronger Foot</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="preferredSide">
+            <span jhiTranslate="grafismoApp.player.preferredSide">Preferred Side</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="contractUntil">
+            <span jhiTranslate="grafismoApp.player.contractUntil">Contract Until</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="retirementDate">
+            <span jhiTranslate="grafismoApp.player.retirementDate">Retirement Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="miscData">
+            <span jhiTranslate="grafismoApp.player.miscData">Misc Data</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="person.graphicsName">
+            <span jhiTranslate="grafismoApp.player.person">Person</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let player of players; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/player', player.id, 'view']">{{ player.id }}</a>
+          </td>
+          <td>{{ player.graphicsName }}</td>
+          <td>{{ player.longGraphicsName }}</td>
+          <td>{{ player.shirtName }}</td>
+          <td>{{ player.height }}</td>
+          <td>{{ player.weight }}</td>
+          <td jhiTranslate="{{ 'grafismoApp.Side.' + player.strongerFoot }}">{{ player.strongerFoot }}</td>
+          <td jhiTranslate="{{ 'grafismoApp.Side.' + player.preferredSide }}">{{ player.preferredSide }}</td>
+          <td>{{ player.contractUntil }}</td>
+          <td>{{ player.retirementDate }}</td>
+          <td>{{ player.miscData }}</td>
+          <td>
+            <div *ngIf="player.person">
+              <a [routerLink]="['/person', player.person?.id, 'view']">{{ player.person?.graphicsName }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/player', player.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/player', player.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(player)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="competition">
+      <h2 data-cy="competitionDetailsHeading"><span jhiTranslate="grafismoApp.competition.detail.title">Competition</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ competition.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.name">Name</span></dt>
+        <dd>
+          <span>{{ competition.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.graphicsName">Graphics Name</span></dt>
+        <dd>
+          <span>{{ competition.graphicsName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.type">Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'grafismoApp.CompetitionType.' + competition.type }}">{{ competition.type }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.colour">Colour</span></dt>
+        <dd>
+          <span>{{ competition.colour }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.regulations">Regulations</span></dt>
+        <dd>
+          <span>{{ competition.regulations }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.details">Details</span></dt>
+        <dd>
+          <span>{{ competition.details }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.miscData">Misc Data</span></dt>
+        <dd>
+          <span>{{ competition.miscData }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.parent">Parent</span></dt>
+        <dd>
+          <div *ngIf="competition.parent">
+            <a [routerLink]="['/competition', competition.parent?.id, 'view']">{{ competition.parent?.graphicsName }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.country">Country</span></dt>
+        <dd>
+          <div *ngIf="competition.country">
+            <a [routerLink]="['/country', competition.country?.id, 'view']">{{ competition.country?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.team">Team</span></dt>
+        <dd>
+          <span *ngFor="let team of competition.teams; let last = last">
+            <a [routerLink]="['/team', team?.id, 'view']">{{ team.graphicsName }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.competition.referee">Referee</span></dt>
+        <dd>
+          <span *ngFor="let referee of competition.referees; let last = last">
+            <a [routerLink]="['/referee', referee?.id, 'view']">{{ referee.graphicsName }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/competition', competition.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

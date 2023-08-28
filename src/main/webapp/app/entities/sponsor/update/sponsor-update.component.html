@@ -1,0 +1,138 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-sponsor-heading" data-cy="SponsorCreateUpdateHeading" jhiTranslate="grafismoApp.sponsor.home.createOrEditLabel">
+        Create or edit a Sponsor
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.graphicsName" for="field_graphicsName">Graphics Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="graphicsName"
+            id="field_graphicsName"
+            data-cy="graphicsName"
+            formControlName="graphicsName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.logo" for="field_logo">Logo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('logoContentType')!.value + ';base64,' + editForm.get('logo')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('logo')!.value"
+              alt="sponsor image"
+            />
+            <div *ngIf="editForm.get('logo')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('logoContentType')!.value }}, {{ byteSize(editForm.get('logo')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('logo', 'logoContentType', 'file_logo')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_logo"
+              data-cy="logo"
+              (change)="setFileData($event, 'logo', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="logo" id="field_logo" data-cy="logo" formControlName="logo" />
+          <input type="hidden" class="form-control" name="logoContentType" id="field_logoContentType" formControlName="logoContentType" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.monocLogo" for="field_monocLogo">Monoc Logo</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('monocLogoContentType')!.value + ';base64,' + editForm.get('monocLogo')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('monocLogo')!.value"
+              alt="sponsor image"
+            />
+            <div *ngIf="editForm.get('monocLogo')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('monocLogoContentType')!.value }}, {{ byteSize(editForm.get('monocLogo')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('monocLogo', 'monocLogoContentType', 'file_monocLogo')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_monocLogo"
+              data-cy="monocLogo"
+              (change)="setFileData($event, 'monocLogo', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="monocLogo" id="field_monocLogo" data-cy="monocLogo" formControlName="monocLogo" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="monocLogoContentType"
+            id="field_monocLogoContentType"
+            formControlName="monocLogoContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.details" for="field_details">Details</label>
+          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.sponsor.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

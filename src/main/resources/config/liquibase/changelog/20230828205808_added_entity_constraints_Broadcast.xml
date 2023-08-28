@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Broadcast.
+    -->
+    <changeSet id="20230828205808-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="match_id"
+                                 baseTableName="broadcast"
+                                 constraintName="fk_broadcast__match_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_match"/>
+
+        <addForeignKeyConstraint baseColumnNames="system_configuration_id"
+                                 baseTableName="broadcast"
+                                 constraintName="fk_broadcast__system_configuration_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="system_configuration"/>
+
+        <addForeignKeyConstraint baseColumnNames="broadcast_id"
+                                 baseTableName="rel_broadcast__broadcast_personnel_member"
+                                 constraintName="fk_rel_broadcast__broadcast_personnel_member__broadcast_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="broadcast"/>
+
+        <addForeignKeyConstraint baseColumnNames="broadcast_personnel_member_id"
+                                 baseTableName="rel_broadcast__broadcast_personnel_member"
+                                 constraintName="fk_rel_broadcast__broadcast_per__broadcast_personnel_membe_98_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="broadcast_personnel_member"/>
+    </changeSet>
+</databaseChangeLog>

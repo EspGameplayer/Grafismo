@@ -1,0 +1,248 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-team-heading" data-cy="TeamCreateUpdateHeading" jhiTranslate="grafismoApp.team.home.createOrEditLabel">
+        Create or edit a Team
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.abb" for="field_abb">Abb</label>
+          <input type="text" class="form-control" name="abb" id="field_abb" data-cy="abb" formControlName="abb" />
+          <div *ngIf="editForm.get('abb')!.invalid && (editForm.get('abb')!.dirty || editForm.get('abb')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('abb')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.graphicsName" for="field_graphicsName">Graphics Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="graphicsName"
+            id="field_graphicsName"
+            data-cy="graphicsName"
+            formControlName="graphicsName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.shortName" for="field_shortName">Short Name</label>
+          <input type="text" class="form-control" name="shortName" id="field_shortName" data-cy="shortName" formControlName="shortName" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.nicknames" for="field_nicknames">Nicknames</label>
+          <input type="text" class="form-control" name="nicknames" id="field_nicknames" data-cy="nicknames" formControlName="nicknames" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.establishmentDate" for="field_establishmentDate"
+            >Establishment Date</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="establishmentDate"
+            id="field_establishmentDate"
+            data-cy="establishmentDate"
+            formControlName="establishmentDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.badge" for="field_badge">Badge</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('badgeContentType')!.value + ';base64,' + editForm.get('badge')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('badge')!.value"
+              alt="team image"
+            />
+            <div *ngIf="editForm.get('badge')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('badgeContentType')!.value }}, {{ byteSize(editForm.get('badge')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('badge', 'badgeContentType', 'file_badge')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_badge"
+              data-cy="badge"
+              (change)="setFileData($event, 'badge', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="badge" id="field_badge" data-cy="badge" formControlName="badge" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="badgeContentType"
+            id="field_badgeContentType"
+            formControlName="badgeContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.monocBadge" for="field_monocBadge">Monoc Badge</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('monocBadgeContentType')!.value + ';base64,' + editForm.get('monocBadge')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('monocBadge')!.value"
+              alt="team image"
+            />
+            <div *ngIf="editForm.get('monocBadge')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('monocBadgeContentType')!.value }}, {{ byteSize(editForm.get('monocBadge')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('monocBadge', 'monocBadgeContentType', 'file_monocBadge')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_monocBadge"
+              data-cy="monocBadge"
+              (change)="setFileData($event, 'monocBadge', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="monocBadge"
+            id="field_monocBadge"
+            data-cy="monocBadge"
+            formControlName="monocBadge"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="monocBadgeContentType"
+            id="field_monocBadgeContentType"
+            formControlName="monocBadgeContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.details" for="field_details">Details</label>
+          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.parent" for="field_parent">Parent</label>
+          <select class="form-control" id="field_parent" data-cy="parent" name="parent" formControlName="parent">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('parent')!.value?.id ? editForm.get('parent')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.preferredFormation" for="field_preferredFormation"
+            >Preferred Formation</label
+          >
+          <select
+            class="form-control"
+            id="field_preferredFormation"
+            data-cy="preferredFormation"
+            name="preferredFormation"
+            formControlName="preferredFormation"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                formationOption.id === editForm.get('preferredFormation')!.value?.id
+                  ? editForm.get('preferredFormation')!.value
+                  : formationOption
+              "
+              *ngFor="let formationOption of formationsSharedCollection; trackBy: trackFormationById"
+            >
+              {{ formationOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.team.location" for="field_location">Location</label>
+          <select class="form-control" id="field_location" data-cy="location" name="location" formControlName="location">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="locationOption.id === editForm.get('location')!.value?.id ? editForm.get('location')!.value : locationOption"
+              *ngFor="let locationOption of locationsSharedCollection; trackBy: trackLocationById"
+            >
+              {{ locationOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="grafismoApp.team.venue" for="field_venues">Venue</label>
+          <select class="form-control" id="field_venues" data-cy="venue" multiple name="venues" formControlName="venues">
+            <option
+              [ngValue]="getSelectedVenue(venueOption, editForm.get('venues')!.value)"
+              *ngFor="let venueOption of venuesSharedCollection; trackBy: trackVenueById"
+            >
+              {{ venueOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

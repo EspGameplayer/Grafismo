@@ -1,0 +1,44 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205808",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "broadcast",
+  "fields": [
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Broadcast",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "match",
+      "otherEntityRelationshipName": "broadcast",
+      "ownerSide": true,
+      "relationshipName": "match",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "systemConfiguration",
+      "otherEntityRelationshipName": "broadcast",
+      "relationshipName": "systemConfiguration",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityField": "graphicsName",
+      "otherEntityName": "broadcastPersonnelMember",
+      "otherEntityRelationshipName": "broadcast",
+      "ownerSide": true,
+      "relationshipName": "broadcastPersonnelMember",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

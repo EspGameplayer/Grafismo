@@ -1,0 +1,45 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205817",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "location",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "graphicsName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "population",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "censusYear",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "denonym",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Location",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "country",
+      "otherEntityRelationshipName": "location",
+      "relationshipName": "country",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

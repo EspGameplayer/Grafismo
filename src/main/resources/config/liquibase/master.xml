@@ -15,7 +15,63 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205808_added_entity_Broadcast.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205809_added_entity_Team.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205810_added_entity_Person.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205811_added_entity_Player.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205812_added_entity_StaffMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205813_added_entity_Referee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205814_added_entity_BroadcastPersonnelMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205815_added_entity_Association.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205816_added_entity_Venue.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205817_added_entity_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205818_added_entity_Shirt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205819_added_entity_Match.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205820_added_entity_MatchPlayer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205821_added_entity_Lineup.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205822_added_entity_Formation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205823_added_entity_TemplateFormation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205824_added_entity_TeamPlayer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205825_added_entity_TeamStaffMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205826_added_entity_MatchAction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205827_added_entity_Sponsor.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205828_added_entity_Competition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205829_added_entity_Matchday.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205830_added_entity_Deduction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205831_added_entity_Suspension.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205832_added_entity_Injury.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205833_added_entity_Season.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205834_added_entity_SystemConfiguration.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205835_added_entity_ActionKey.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205836_added_entity_Position.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205837_added_entity_Country.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205838_added_entity_GraphicElement.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20230828205808_added_entity_constraints_Broadcast.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205809_added_entity_constraints_Team.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205810_added_entity_constraints_Person.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205811_added_entity_constraints_Player.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205812_added_entity_constraints_StaffMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205813_added_entity_constraints_Referee.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205814_added_entity_constraints_BroadcastPersonnelMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205816_added_entity_constraints_Venue.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205817_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205818_added_entity_constraints_Shirt.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205819_added_entity_constraints_Match.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205820_added_entity_constraints_MatchPlayer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205821_added_entity_constraints_Lineup.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205823_added_entity_constraints_TemplateFormation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205824_added_entity_constraints_TeamPlayer.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205825_added_entity_constraints_TeamStaffMember.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205826_added_entity_constraints_MatchAction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205828_added_entity_constraints_Competition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205829_added_entity_constraints_Matchday.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205830_added_entity_constraints_Deduction.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205831_added_entity_constraints_Suspension.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205832_added_entity_constraints_Injury.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205834_added_entity_constraints_SystemConfiguration.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205835_added_entity_constraints_ActionKey.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20230828205836_added_entity_constraints_Position.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

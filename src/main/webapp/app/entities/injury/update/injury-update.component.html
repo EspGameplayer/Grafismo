@@ -1,0 +1,112 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-injury-heading" data-cy="InjuryCreateUpdateHeading" jhiTranslate="grafismoApp.injury.home.createOrEditLabel">
+        Create or edit a Injury
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.moment" for="field_moment">Moment</label>
+          <div class="d-flex">
+            <input
+              id="field_moment"
+              data-cy="moment"
+              type="datetime-local"
+              class="form-control"
+              name="moment"
+              formControlName="moment"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.estHealingTime" for="field_estHealingTime">Est Healing Time</label>
+          <input
+            type="text"
+            class="form-control"
+            name="estHealingTime"
+            id="field_estHealingTime"
+            data-cy="estHealingTime"
+            formControlName="estHealingTime"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.estComebackDate" for="field_estComebackDate">Est Comeback Date</label>
+          <div class="d-flex">
+            <input
+              id="field_estComebackDate"
+              data-cy="estComebackDate"
+              type="datetime-local"
+              class="form-control"
+              name="estComebackDate"
+              formControlName="estComebackDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.reason" for="field_reason">Reason</label>
+          <input type="text" class="form-control" name="reason" id="field_reason" data-cy="reason" formControlName="reason" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.player" for="field_player">Player</label>
+          <select class="form-control" id="field_player" data-cy="player" name="player" formControlName="player">
+            <option *ngIf="!editForm.get('player')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="playerOption.id === editForm.get('player')!.value?.id ? editForm.get('player')!.value : playerOption"
+              *ngFor="let playerOption of playersSharedCollection; trackBy: trackPlayerById"
+            >
+              {{ playerOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['player'])!.invalid && (editForm.get(['player'])!.dirty || editForm.get(['player'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['player'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.injury.match" for="field_match">Match</label>
+          <select class="form-control" id="field_match" data-cy="match" name="match" formControlName="match">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="matchOption.id === editForm.get('match')!.value?.id ? editForm.get('match')!.value : matchOption"
+              *ngFor="let matchOption of matchesSharedCollection; trackBy: trackMatchById"
+            >
+              {{ matchOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

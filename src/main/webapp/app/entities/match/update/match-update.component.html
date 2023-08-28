@@ -1,0 +1,246 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-match-heading" data-cy="MatchCreateUpdateHeading" jhiTranslate="grafismoApp.match.home.createOrEditLabel">
+        Create or edit a Match
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.moment" for="field_moment">Moment</label>
+          <div class="d-flex">
+            <input
+              id="field_moment"
+              data-cy="moment"
+              type="datetime-local"
+              class="form-control"
+              name="moment"
+              formControlName="moment"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.attendance" for="field_attendance">Attendance</label>
+          <input
+            type="number"
+            class="form-control"
+            name="attendance"
+            id="field_attendance"
+            data-cy="attendance"
+            formControlName="attendance"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.hashtag" for="field_hashtag">Hashtag</label>
+          <input type="text" class="form-control" name="hashtag" id="field_hashtag" data-cy="hashtag" formControlName="hashtag" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.details" for="field_details">Details</label>
+          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.motm" for="field_motm">Motm</label>
+          <select class="form-control" id="field_motm" data-cy="motm" name="motm" formControlName="motm">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="matchPlayerOption.id === editForm.get('motm')!.value?.id ? editForm.get('motm')!.value : matchPlayerOption"
+              *ngFor="let matchPlayerOption of motmsCollection; trackBy: trackMatchPlayerById"
+            >
+              {{ matchPlayerOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.homeLineup" for="field_homeLineup">Home Lineup</label>
+          <select class="form-control" id="field_homeLineup" data-cy="homeLineup" name="homeLineup" formControlName="homeLineup">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="lineupOption.id === editForm.get('homeLineup')!.value?.id ? editForm.get('homeLineup')!.value : lineupOption"
+              *ngFor="let lineupOption of homeLineupsCollection; trackBy: trackLineupById"
+            >
+              {{ lineupOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.awayLineup" for="field_awayLineup">Away Lineup</label>
+          <select class="form-control" id="field_awayLineup" data-cy="awayLineup" name="awayLineup" formControlName="awayLineup">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="lineupOption.id === editForm.get('awayLineup')!.value?.id ? editForm.get('awayLineup')!.value : lineupOption"
+              *ngFor="let lineupOption of awayLineupsCollection; trackBy: trackLineupById"
+            >
+              {{ lineupOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.homeTeam" for="field_homeTeam">Home Team</label>
+          <select class="form-control" id="field_homeTeam" data-cy="homeTeam" name="homeTeam" formControlName="homeTeam">
+            <option *ngIf="!editForm.get('homeTeam')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('homeTeam')!.value?.id ? editForm.get('homeTeam')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['homeTeam'])!.invalid && (editForm.get(['homeTeam'])!.dirty || editForm.get(['homeTeam'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['homeTeam'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.awayTeam" for="field_awayTeam">Away Team</label>
+          <select class="form-control" id="field_awayTeam" data-cy="awayTeam" name="awayTeam" formControlName="awayTeam">
+            <option *ngIf="!editForm.get('awayTeam')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="teamOption.id === editForm.get('awayTeam')!.value?.id ? editForm.get('awayTeam')!.value : teamOption"
+              *ngFor="let teamOption of teamsSharedCollection; trackBy: trackTeamById"
+            >
+              {{ teamOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['awayTeam'])!.invalid && (editForm.get(['awayTeam'])!.dirty || editForm.get(['awayTeam'])!.touched)">
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['awayTeam'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.venue" for="field_venue">Venue</label>
+          <select class="form-control" id="field_venue" data-cy="venue" name="venue" formControlName="venue">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="venueOption.id === editForm.get('venue')!.value?.id ? editForm.get('venue')!.value : venueOption"
+              *ngFor="let venueOption of venuesSharedCollection; trackBy: trackVenueById"
+            >
+              {{ venueOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.matchDelegate" for="field_matchDelegate">Match Delegate</label>
+          <select
+            class="form-control"
+            id="field_matchDelegate"
+            data-cy="matchDelegate"
+            name="matchDelegate"
+            formControlName="matchDelegate"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                teamStaffMemberOption.id === editForm.get('matchDelegate')!.value?.id
+                  ? editForm.get('matchDelegate')!.value
+                  : teamStaffMemberOption
+              "
+              *ngFor="let teamStaffMemberOption of teamStaffMembersSharedCollection; trackBy: trackTeamStaffMemberById"
+            >
+              {{ teamStaffMemberOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.homeShirt" for="field_homeShirt">Home Shirt</label>
+          <select class="form-control" id="field_homeShirt" data-cy="homeShirt" name="homeShirt" formControlName="homeShirt">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="shirtOption.id === editForm.get('homeShirt')!.value?.id ? editForm.get('homeShirt')!.value : shirtOption"
+              *ngFor="let shirtOption of shirtsSharedCollection; trackBy: trackShirtById"
+            >
+              {{ shirtOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.awayShirt" for="field_awayShirt">Away Shirt</label>
+          <select class="form-control" id="field_awayShirt" data-cy="awayShirt" name="awayShirt" formControlName="awayShirt">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="shirtOption.id === editForm.get('awayShirt')!.value?.id ? editForm.get('awayShirt')!.value : shirtOption"
+              *ngFor="let shirtOption of shirtsSharedCollection; trackBy: trackShirtById"
+            >
+              {{ shirtOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.match.matchday" for="field_matchday">Matchday</label>
+          <select class="form-control" id="field_matchday" data-cy="matchday" name="matchday" formControlName="matchday">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="matchdayOption.id === editForm.get('matchday')!.value?.id ? editForm.get('matchday')!.value : matchdayOption"
+              *ngFor="let matchdayOption of matchdaysSharedCollection; trackBy: trackMatchdayById"
+            >
+              {{ matchdayOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="grafismoApp.match.referee" for="field_referees">Referee</label>
+          <select class="form-control" id="field_referees" data-cy="referee" multiple name="referees" formControlName="referees">
+            <option
+              [ngValue]="getSelectedReferee(refereeOption, editForm.get('referees')!.value)"
+              *ngFor="let refereeOption of refereesSharedCollection; trackBy: trackRefereeById"
+            >
+              {{ refereeOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205822",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "formation",
+  "fields": [
+    {
+      "fieldName": "graphicsName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "detailedName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "distribution",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Formation",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [],
+  "service": "serviceClass"
+}

@@ -1,0 +1,40 @@
+{
+  "grafismoApp": {
+    "person": {
+      "home": {
+        "title": "People",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Person",
+        "createOrEditLabel": "Crear o editar Person",
+        "notFound": "Ningún People encontrado"
+      },
+      "created": "Un nuevo Person ha sido creado con el identificador {{ param }}",
+      "updated": "Un Person ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Person ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Person {{ id }}?"
+      },
+      "detail": {
+        "title": "Person"
+      },
+      "id": "ID",
+      "name": "Name",
+      "middleName": "Middle Name",
+      "surname1": "Surname 1",
+      "surname2": "Surname 2",
+      "nicknames": "Nicknames",
+      "graphicsName": "Graphics Name",
+      "longGraphicsName": "Long Graphics Name",
+      "callnames": "Callnames",
+      "birthDate": "Birth Date",
+      "deathDate": "Death Date",
+      "mediumShotPhoto": "Medium Shot Photo",
+      "fullShotPhoto": "Full Shot Photo",
+      "socialMedia": "Social Media",
+      "details": "Details",
+      "miscData": "Misc Data",
+      "nationality": "Nationality",
+      "birthplace": "Birthplace"
+    }
+  }
+}

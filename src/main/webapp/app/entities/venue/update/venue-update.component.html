@@ -1,0 +1,148 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-venue-heading" data-cy="VenueCreateUpdateHeading" jhiTranslate="grafismoApp.venue.home.createOrEditLabel">
+        Create or edit a Venue
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+          <div *ngIf="editForm.get('name')!.invalid && (editForm.get('name')!.dirty || editForm.get('name')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('name')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.graphicsName" for="field_graphicsName">Graphics Name</label>
+          <input
+            type="text"
+            class="form-control"
+            name="graphicsName"
+            id="field_graphicsName"
+            data-cy="graphicsName"
+            formControlName="graphicsName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.longGraphicsName" for="field_longGraphicsName"
+            >Long Graphics Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="longGraphicsName"
+            id="field_longGraphicsName"
+            data-cy="longGraphicsName"
+            formControlName="longGraphicsName"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.capacity" for="field_capacity">Capacity</label>
+          <input type="number" class="form-control" name="capacity" id="field_capacity" data-cy="capacity" formControlName="capacity" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.openingDate" for="field_openingDate">Opening Date</label>
+          <input
+            type="text"
+            class="form-control"
+            name="openingDate"
+            id="field_openingDate"
+            data-cy="openingDate"
+            formControlName="openingDate"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.fieldSize" for="field_fieldSize">Field Size</label>
+          <input type="text" class="form-control" name="fieldSize" id="field_fieldSize" data-cy="fieldSize" formControlName="fieldSize" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.isArtificialGrass" for="field_isArtificialGrass"
+            >Is Artificial Grass</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="isArtificialGrass"
+            id="field_isArtificialGrass"
+            data-cy="isArtificialGrass"
+            formControlName="isArtificialGrass"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.address" for="field_address">Address</label>
+          <input type="text" class="form-control" name="address" id="field_address" data-cy="address" formControlName="address" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.geographicLocation" for="field_geographicLocation"
+            >Geographic Location</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="geographicLocation"
+            id="field_geographicLocation"
+            data-cy="geographicLocation"
+            formControlName="geographicLocation"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.details" for="field_details">Details</label>
+          <input type="text" class="form-control" name="details" id="field_details" data-cy="details" formControlName="details" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.venue.location" for="field_location">Location</label>
+          <select class="form-control" id="field_location" data-cy="location" name="location" formControlName="location">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="locationOption.id === editForm.get('location')!.value?.id ? editForm.get('location')!.value : locationOption"
+              *ngFor="let locationOption of locationsSharedCollection; trackBy: trackLocationById"
+            >
+              {{ locationOption.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

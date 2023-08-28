@@ -1,0 +1,33 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205838",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "graphic_element",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "code",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "GraphicElement",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "actionKey",
+      "otherEntityRelationshipName": "graphicElement",
+      "ownerSide": false,
+      "relationshipName": "keys",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

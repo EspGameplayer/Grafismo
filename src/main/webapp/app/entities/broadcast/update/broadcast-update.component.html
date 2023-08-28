@@ -1,0 +1,122 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-broadcast-heading" data-cy="BroadcastCreateUpdateHeading" jhiTranslate="grafismoApp.broadcast.home.createOrEditLabel">
+        Create or edit a Broadcast
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.broadcast.miscData" for="field_miscData">Misc Data</label>
+          <input type="text" class="form-control" name="miscData" id="field_miscData" data-cy="miscData" formControlName="miscData" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.broadcast.match" for="field_match">Match</label>
+          <select class="form-control" id="field_match" data-cy="match" name="match" formControlName="match">
+            <option *ngIf="editForm.get(['match'])!.value == null" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="matchOption.id === editForm.get('match')!.value?.id ? editForm.get('match')!.value : matchOption"
+              *ngFor="let matchOption of matchesCollection; trackBy: trackMatchById"
+            >
+              {{ matchOption.id }}
+            </option>
+          </select>
+        </div>
+        <div *ngIf="editForm.get(['match'])!.invalid && (editForm.get(['match'])!.dirty || editForm.get(['match'])!.touched)">
+          <small class="form-text text-danger" *ngIf="editForm.get(['match'])?.errors?.required" jhiTranslate="entity.validation.required">
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="grafismoApp.broadcast.systemConfiguration" for="field_systemConfiguration"
+            >System Configuration</label
+          >
+          <select
+            class="form-control"
+            id="field_systemConfiguration"
+            data-cy="systemConfiguration"
+            name="systemConfiguration"
+            formControlName="systemConfiguration"
+          >
+            <option *ngIf="!editForm.get('systemConfiguration')!.value" [ngValue]="null" selected></option>
+            <option
+              [ngValue]="
+                systemConfigurationOption.id === editForm.get('systemConfiguration')!.value?.id
+                  ? editForm.get('systemConfiguration')!.value
+                  : systemConfigurationOption
+              "
+              *ngFor="let systemConfigurationOption of systemConfigurationsSharedCollection; trackBy: trackSystemConfigurationById"
+            >
+              {{ systemConfigurationOption.id }}
+            </option>
+          </select>
+        </div>
+        <div
+          *ngIf="
+            editForm.get(['systemConfiguration'])!.invalid &&
+            (editForm.get(['systemConfiguration'])!.dirty || editForm.get(['systemConfiguration'])!.touched)
+          "
+        >
+          <small
+            class="form-text text-danger"
+            *ngIf="editForm.get(['systemConfiguration'])?.errors?.required"
+            jhiTranslate="entity.validation.required"
+          >
+            This field is required.
+          </small>
+        </div>
+
+        <div class="row mb-3">
+          <label jhiTranslate="grafismoApp.broadcast.broadcastPersonnelMember" for="field_broadcastPersonnelMembers"
+            >Broadcast Personnel Member</label
+          >
+          <select
+            class="form-control"
+            id="field_broadcastPersonnelMembers"
+            data-cy="broadcastPersonnelMember"
+            multiple
+            name="broadcastPersonnelMembers"
+            formControlName="broadcastPersonnelMembers"
+          >
+            <option
+              [ngValue]="
+                getSelectedBroadcastPersonnelMember(broadcastPersonnelMemberOption, editForm.get('broadcastPersonnelMembers')!.value)
+              "
+              *ngFor="
+                let broadcastPersonnelMemberOption of broadcastPersonnelMembersSharedCollection;
+                trackBy: trackBroadcastPersonnelMemberById
+              "
+            >
+              {{ broadcastPersonnelMemberOption.graphicsName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

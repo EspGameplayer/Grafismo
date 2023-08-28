@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="VenueHeading">
+    <span jhiTranslate="grafismoApp.venue.home.title">Venues</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="grafismoApp.venue.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-venue"
+        [routerLink]="['/venue/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="grafismoApp.venue.home.createLabel"> Create a new Venue </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="venues?.length === 0">
+    <span jhiTranslate="grafismoApp.venue.home.notFound">No venues found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="venues && venues.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="name"><span jhiTranslate="grafismoApp.venue.name">Name</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="graphicsName">
+            <span jhiTranslate="grafismoApp.venue.graphicsName">Graphics Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="longGraphicsName">
+            <span jhiTranslate="grafismoApp.venue.longGraphicsName">Long Graphics Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="capacity">
+            <span jhiTranslate="grafismoApp.venue.capacity">Capacity</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="openingDate">
+            <span jhiTranslate="grafismoApp.venue.openingDate">Opening Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="fieldSize">
+            <span jhiTranslate="grafismoApp.venue.fieldSize">Field Size</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="isArtificialGrass">
+            <span jhiTranslate="grafismoApp.venue.isArtificialGrass">Is Artificial Grass</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="address">
+            <span jhiTranslate="grafismoApp.venue.address">Address</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="geographicLocation">
+            <span jhiTranslate="grafismoApp.venue.geographicLocation">Geographic Location</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="details">
+            <span jhiTranslate="grafismoApp.venue.details">Details</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="miscData">
+            <span jhiTranslate="grafismoApp.venue.miscData">Misc Data</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="location.name">
+            <span jhiTranslate="grafismoApp.venue.location">Location</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let venue of venues; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/venue', venue.id, 'view']">{{ venue.id }}</a>
+          </td>
+          <td>{{ venue.name }}</td>
+          <td>{{ venue.graphicsName }}</td>
+          <td>{{ venue.longGraphicsName }}</td>
+          <td>{{ venue.capacity }}</td>
+          <td>{{ venue.openingDate }}</td>
+          <td>{{ venue.fieldSize }}</td>
+          <td>{{ venue.isArtificialGrass }}</td>
+          <td>{{ venue.address }}</td>
+          <td>{{ venue.geographicLocation }}</td>
+          <td>{{ venue.details }}</td>
+          <td>{{ venue.miscData }}</td>
+          <td>
+            <div *ngIf="venue.location">
+              <a [routerLink]="['/location', venue.location?.id, 'view']">{{ venue.location?.name }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/venue', venue.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/venue', venue.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(venue)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

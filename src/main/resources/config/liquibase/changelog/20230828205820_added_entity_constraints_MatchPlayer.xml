@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity MatchPlayer.
+    -->
+    <changeSet id="20230828205820-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="team_player_id"
+                                 baseTableName="match_player"
+                                 constraintName="fk_match_player__team_player_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_player"/>
+
+        <addForeignKeyConstraint baseColumnNames="position_id"
+                                 baseTableName="match_player"
+                                 constraintName="fk_match_player__position_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="position"/>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,43 @@
+{
+  "applications": "*",
+  "changelogDate": "20230828205826",
+  "dto": "mapstruct",
+  "embedded": false,
+  "entityTableName": "match_action",
+  "fields": [
+    {
+      "fieldName": "timestamp",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "details",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "miscData",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "MatchAction",
+  "pagination": "infinite-scroll",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "match",
+      "otherEntityRelationshipName": "matchAction",
+      "relationshipName": "match",
+      "relationshipType": "many-to-one",
+      "relationshipValidateRules": "required"
+    },
+    {
+      "otherEntityName": "matchPlayer",
+      "otherEntityRelationshipName": "action",
+      "ownerSide": true,
+      "relationshipName": "matchPlayer",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

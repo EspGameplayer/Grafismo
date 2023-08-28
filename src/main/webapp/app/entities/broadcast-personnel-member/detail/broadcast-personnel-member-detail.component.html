@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="broadcastPersonnelMember">
+      <h2 data-cy="broadcastPersonnelMemberDetailsHeading">
+        <span jhiTranslate="grafismoApp.broadcastPersonnelMember.detail.title">Broadcast Personnel Member</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ broadcastPersonnelMember.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.broadcastPersonnelMember.graphicsName">Graphics Name</span></dt>
+        <dd>
+          <span>{{ broadcastPersonnelMember.graphicsName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.broadcastPersonnelMember.longGraphicsName">Long Graphics Name</span></dt>
+        <dd>
+          <span>{{ broadcastPersonnelMember.longGraphicsName }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.broadcastPersonnelMember.role">Role</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'grafismoApp.BroadcastPersonnelMemberRole.' + broadcastPersonnelMember.role }}">{{
+            broadcastPersonnelMember.role
+          }}</span>
+        </dd>
+        <dt><span jhiTranslate="grafismoApp.broadcastPersonnelMember.person">Person</span></dt>
+        <dd>
+          <div *ngIf="broadcastPersonnelMember.person">
+            <a [routerLink]="['/person', broadcastPersonnelMember.person?.id, 'view']">{{
+              broadcastPersonnelMember.person?.graphicsName
+            }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/broadcast-personnel-member', broadcastPersonnelMember.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,98 @@
+<div>
+  <h2 id="page-heading" data-cy="BroadcastHeading">
+    <span jhiTranslate="grafismoApp.broadcast.home.title">Broadcasts</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="reset()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="grafismoApp.broadcast.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-broadcast"
+        [routerLink]="['/broadcast/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="grafismoApp.broadcast.home.createLabel"> Create a new Broadcast </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="broadcasts?.length === 0">
+    <span jhiTranslate="grafismoApp.broadcast.home.notFound">No broadcasts found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="broadcasts && broadcasts.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="reset()">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="miscData">
+            <span jhiTranslate="grafismoApp.broadcast.miscData">Misc Data</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="match.id">
+            <span jhiTranslate="grafismoApp.broadcast.match">Match</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="systemConfiguration.id">
+            <span jhiTranslate="grafismoApp.broadcast.systemConfiguration">System Configuration</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+        <tr *ngFor="let broadcast of broadcasts; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/broadcast', broadcast.id, 'view']">{{ broadcast.id }}</a>
+          </td>
+          <td>{{ broadcast.miscData }}</td>
+          <td>
+            <div *ngIf="broadcast.match">
+              <a [routerLink]="['/match', broadcast.match?.id, 'view']">{{ broadcast.match?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="broadcast.systemConfiguration">
+              <a [routerLink]="['/system-configuration', broadcast.systemConfiguration?.id, 'view']">{{
+                broadcast.systemConfiguration?.id
+              }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/broadcast', broadcast.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/broadcast', broadcast.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(broadcast)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
